@@ -25,9 +25,9 @@ class UserRole(models.Model):
     def __eq__(self, other):
         #FIXME Quick fix for userroles when is triyng to check if
         # it's equal to a different class rather than itself
-        if self.__class__.__name__ is other.__class__.__name__:
+        try:
             return self.name == other.name
-        else:
+        except AttributeError:
             return False
 
     def __getattr__(self, name):
