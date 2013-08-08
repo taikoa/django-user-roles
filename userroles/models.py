@@ -23,7 +23,12 @@ class UserRole(models.Model):
         return getattr(self, self.child)
 
     def __eq__(self, other):
-        return self.name == other.name
+        #FIXME Quick fix for userroles when is triyng to check if
+        # it's equal to a different class rather than itself
+        if self.__class__.__name__ is other.__class__.__name__:
+            return self.name == other.name
+        else:
+            return False
 
     def __getattr__(self, name):
         if name.startswith('is_'):
